@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>hello phaser!</title>
+        <script src="//cdn.jsdelivr.net/phaser/2.5.0/phaser.min.js"></script>
+    </head>
+    <body>
+
+    <script type="text/javascript">
+
+    window.onload = function() {
+
+        //  Note that this html file is set to pull down Phaser 2.5.0 from the JS Delivr CDN.
+        //  Although it will work fine with this tutorial, it's almost certainly not the most current version.
+        //  Be sure to replace it with an updated version before you start experimenting with adding your own code.
+
+        var game = new Phaser.Game(1200, 800, Phaser.AUTO, '', { preload: preload, create: create });
+
+        function preload () {
+
+            game.load.image('logo', 'phaser.png');
+            
+            //  We're going to be using physics, so enable the Arcade Physics system
+            game.physics.startSystem(Phaser.Physics.ARCADE);
+            platforms = game.add.group();
+            platforms.enableBody = true;
+            var ground = platforms.create(0, game.world.height - 64, 'ground');
+            var ledge = platforms.create(400, 400, 'ground');
+            ledge = platforms.create(-150, 250, 'ground');
+            ledge.body.immovable = true;
+
+
+        }
+
+        function create () {
+
+            var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
+            logo.anchor.setTo(0.5, 0.5);
+
+        }
+        
+        function update() {
+            
+        }
+
+    };
+
+    </script>
+
+    </body>
+</html>
