@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.0.2" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="1">
- <tileset firstgid="1" source="platforms.tsx"/>
+ <tileset firstgid="1" name="tilesets32x32" tilewidth="32" tileheight="32" tilecount="10" columns="10">
+  <image source="../sprites/level_0_platforms.png" width="320" height="32"/>
+ </tileset>
  <layer name="Background" width="20" height="20">
   <data encoding="base64" compression="zlib">
    eJxjZWBgYB3Fo3gUj+JRPIpJxACBSAfR
@@ -8,7 +10,7 @@
  </layer>
  <layer name="Foreground" width="20" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjZmBgYKYiHgWjABmwkIFHweACTETgUTA0ADFxSQoGAGR+AKs=
+   eJxjZmBgYKYiHgWjgBTAggXTQ+8oIB4wkYBHweAGpMQlMRgAN8YAow==
   </data>
  </layer>
 </map>

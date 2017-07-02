@@ -15,7 +15,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJxjZmBgYKYiHgWjABmwkIFHweACTETgUTA0ADFxSQoGAGR+AKs=",
+         "data":"eJxjZmBgYKYiHgWjgBTAggXTQ+8oIB4wkYBHweAGpMQlMRgAN8YAow==",
          "encoding":"base64",
          "height":20,
          "name":"Foreground",
@@ -33,8 +33,17 @@
  "tileheight":32,
  "tilesets":[
         {
+         "columns":10,
          "firstgid":1,
-         "source":"platforms.tsx"
+         "image":"..\/sprites\/level_0_platforms.png",
+         "imageheight":32,
+         "imagewidth":320,
+         "margin":0,
+         "name":"tilesets32x32",
+         "spacing":0,
+         "tilecount":10,
+         "tileheight":32,
+         "tilewidth":32
         }],
  "tilewidth":32,
  "type":"map",
