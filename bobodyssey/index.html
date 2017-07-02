@@ -3,45 +3,124 @@
     <head>
         <meta charset="UTF-8" />
         <title>hello phaser!</title>
-        <script src="//cdn.jsdelivr.net/phaser/2.5.0/phaser.min.js"></script>
+        <script src="../build/phaser.js"></script>
     </head>
     <body>
 
     <script type="text/javascript">
 
     window.onload = function() {
+        /*global Phaser*/
+        
+        // tilemap tutorial:
+        // https://www.joshmorony.com/create-a-running-platformer-game-in-phaser-with-tilemaps/
+        // from Tiled, tilemap must have
+        //   - tileset embedded
+        //   - base64 format with no compression
 
         //  Note that this html file is set to pull down Phaser 2.5.0 from the JS Delivr CDN.
         //  Although it will work fine with this tutorial, it's almost certainly not the most current version.
         //  Be sure to replace it with an updated version before you start experimenting with adding your own code.
 
-        var game = new Phaser.Game(1200, 800, Phaser.AUTO, '', { preload: preload, create: create });
+        var game = new Phaser.Game(640, 640, Phaser.AUTO, '',
+            { preload: preload, create: create, update: update});
 
         function preload () {
 
-            game.load.image('logo', 'phaser.png');
-            
-            //  We're going to be using physics, so enable the Arcade Physics system
-            game.physics.startSystem(Phaser.Physics.ARCADE);
-            platforms = game.add.group();
-            platforms.enableBody = true;
-            var ground = platforms.create(0, game.world.height - 64, 'ground');
-            var ledge = platforms.create(400, 400, 'ground');
-            ledge = platforms.create(-150, 250, 'ground');
-            ledge.body.immovable = true;
 
+            game.stage.backgroundColor = "#4488AA";
+
+            game.load.image('rock_block', 'assets/sprites/rock_block.png');
+            game.load.spritesheet('cookie', 'assets/sprites/cookie.png',188,188,4);
+            
+            game.load.tilemap('tilemap', 'assets/tilemaps/one_screen.json', null, Phaser.Tilemap.TILED_JSON);
+            game.load.image('tiles', 'assets/sprites/level_0_platforms.png');
 
         }
 
+        var map;
+        var groundLayer;
+        var cursors;
+        var cookie;
+        var platforms;
+        
         function create () {
+            
+            
+            //  We're going to be using physics, so enable the Arcade Physics system
+            game.physics.startSystem(Phaser.Physics.ARCADE);
+            
+            // platforms
+            platforms = game.add.group();
+            platforms.enableBody = true;
+            
+            game.physics.arcade.enable(platforms);
+            
+            map = game.add.tilemap('tilemap');
+            map.addTilesetImage('tilesets32x32', 'tiles');
+            
+            map.createLayer('Background');
+            groundLayer = map.createLayer('Foreground');
+            
+            groundLayer.enableBody = true;
+            
+            map.setCollisionBetween(1, 100, true, 'Foreground');
+            
+            groundLayer.resizeWorld();
 
-            var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
-            logo.anchor.setTo(0.5, 0.5);
+            cookie = game.add.sprite(game.world.centerX, game.world.centerY, 'cookie', 0);
+            cookie.scale.setTo(0.2);
+            cookie.anchor.setTo(0.5, 0.5);
+            game.physics.arcade.enable(cookie);
+            
+            //  cookie physics properties. Give the little guy a slight bounce.
+            cookie.body.bounce.y = 0.2;
+            cookie.body.gravity.y = 300;
+            cookie.body.collideWorldBounds = true;
+            
+            cookie.animations.add('right', [0, 1, 2, 3], 4, true);
+            cookie.animations.add('left', [3, 2, 1, 0], 4, true);
+            
+            cursors = game.input.keyboard.createCursorKeys();
 
         }
         
         function update() {
+                        
+            //  Reset the cookie's velocity (movement)
+            cookie.body.velocity.x = 0;
             
+            //  Collide the cookie and the stars with the platforms
+            var hitPlatform = game.physics.arcade.collide(cookie, groundLayer);
+            
+            console.log(hitPlatform, cookie.body.touching);
+
+        
+            if (cursors.left.isDown)
+            {
+                //  Move to the left
+                cookie.body.velocity.x = -150;
+        
+                cookie.animations.play('left');
+            }
+            else if (cursors.right.isDown)
+            {
+                //  Move to the right
+                cookie.body.velocity.x = 150;
+        
+                cookie.animations.play('right');
+            }
+            else
+            {
+                //  Stand still
+                cookie.animations.stop();
+            }
+        
+            //  Allow the player to jump if they are touching the ground.
+            if (cursors.up.isDown && cookie.body.blocked.down && hitPlatform)
+            {
+                cookie.body.velocity.y = -350;
+            }
         }
 
     };
