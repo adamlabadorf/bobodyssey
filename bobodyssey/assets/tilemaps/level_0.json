@@ -2,7 +2,7 @@
  "layers":[
         {
          "compression":"zlib",
-         "data":"eJzt27sJACAMQMHo\/kOLEwTEP3eQyiaWTzACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBf1GQAAACAt6zueu8FAAAAkOv9XEKfAwAAwEkn+lyzAwAAcIvsD\/nOKcn5yO4r7wkAAACzNL\/iALo=",
+         "data":"eJzt2zEKwCAQRcE1tfc\/b8gJJCHmb2AGtrJZyyc4q2oWAAAAkKbPAQAAoAeNDgAAAHmzNDoAAAB0oM8BAAAgT58DAABAnj4HAACAHjQ6AAAA5OlzAAAAyNPnAAAAAAAAAAAAAAAAAAAA3HUsBgAAAPiX3V3vvQAAAADWrn4epc8BAAAgKdHnmh0AAIAuVn\/Iv5yxOH+y+857AgAAwFtOzXcBSg==",
          "encoding":"base64",
          "height":18,
          "name":"Tile Layer 1",
@@ -22,6 +22,10 @@
         {
          "firstgid":1,
          "source":"platforms.tsx"
+        }, 
+        {
+         "firstgid":11,
+         "source":"..\/..\/..\/..\/..\/..\/..\/..\/tools\/cygwin\/home\/aisto_000\/bobodyssey\/bobodyssey\/assets\/tilemaps\/platforms.tsx"
         }],
  "tilewidth":32,
  "type":"map",
